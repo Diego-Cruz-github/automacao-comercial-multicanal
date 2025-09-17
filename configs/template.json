@@ -1,0 +1,34 @@
+{
+  "empresa": "Nome da Empresa",
+  "segmento": "setor-empresarial",
+  "fluxo_rapido": [
+    "Olá! É cliente ou primeira consulta?",
+    "Qual serviço interessa?",
+    "Qual a urgência?"
+  ],
+  "servicos": [
+    "Serviço 1",
+    "Serviço 2", 
+    "Serviço 3",
+    "Consultoria"
+  ],
+  "agendamento": {
+    "duracao_padrao": "30min",
+    "horario_funcionamento": "09:00-18:00",
+    "dias_semana": ["segunda", "terça", "quarta", "quinta", "sexta"]
+  },
+  "contato": {
+    "telefone": "+55 (XX) XXXXX-XXXX",
+    "email": "contato@empresa.com",
+    "website": "www.empresa.com"
+  },
+  "transferencia": {
+    "mensagem": "Gostaria de falar com um especialista agora?",
+    "opcoes": ["SIM", "NÃO", "AGENDAR"]
+  },
+  "metricas": {
+    "taxa_conversao_meta": 45,
+    "tempo_resposta_meta": 30,
+    "satisfacao_meta": 8.5
+  }
+}

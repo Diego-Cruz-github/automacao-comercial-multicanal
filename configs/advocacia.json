@@ -1,0 +1,35 @@
+{
+  "empresa": "Escritório Jurídico Silva & Associados",
+  "segmento": "advocacia",
+  "fluxo_rapido": [
+    "Olá! Já é cliente ou novo caso?",
+    "Área jurídica? (Trabalhista/Previdenciário/Criminal)",
+    "Urgência? (Imediato/Esta semana/Próximo mês)"
+  ],
+  "servicos": [
+    "Trabalhista",
+    "Previdenciário", 
+    "Criminal",
+    "Cível",
+    "Consultoria Jurídica"
+  ],
+  "agendamento": {
+    "duracao_padrao": "30min",
+    "horario_funcionamento": "08:00-18:00",
+    "dias_semana": ["segunda", "terça", "quarta", "quinta", "sexta"]
+  },
+  "contato": {
+    "telefone": "+55 (11) 99999-9999",
+    "email": "contato@silvaassociados.com.br",
+    "website": "www.silvaassociados.com.br"
+  },
+  "transferencia": {
+    "mensagem": "Falar com advogado agora?",
+    "opcoes": ["SIM", "NÃO", "AGENDAR"]
+  },
+  "metricas": {
+    "taxa_conversao_meta": 50,
+    "tempo_resposta_meta": 25,
+    "satisfacao_meta": 9.0
+  }
+}

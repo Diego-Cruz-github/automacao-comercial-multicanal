@@ -1,0 +1,35 @@
+{
+  "empresa": "Clínica Estética Bella Vita",
+  "segmento": "estética",
+  "fluxo_rapido": [
+    "Olá! É cliente ou primeira vez?",
+    "Que procedimento interessa? (Botox/Preenchimento/Harmonização)",
+    "Orçamento disponível?"
+  ],
+  "servicos": [
+    "Botox",
+    "Preenchimento", 
+    "Harmonização Facial",
+    "Skincare",
+    "Consultoria Estética"
+  ],
+  "agendamento": {
+    "duracao_padrao": "20min",
+    "horario_funcionamento": "09:00-19:00",
+    "dias_semana": ["segunda", "terça", "quarta", "quinta", "sexta", "sábado"]
+  },
+  "contato": {
+    "telefone": "+55 (11) 98888-8888",
+    "email": "contato@bellavita.com.br",
+    "website": "www.bellavita.com.br"
+  },
+  "transferencia": {
+    "mensagem": "Falar com especialista agora?",
+    "opcoes": ["SIM", "NÃO", "AGENDAR"]
+  },
+  "metricas": {
+    "taxa_conversao_meta": 55,
+    "tempo_resposta_meta": 20,
+    "satisfacao_meta": 8.8
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "calculo_roi": {
+    "receita_gerada": {
+      "formula": "=SUMIF(D:D,\"convertido\",G:G)",
+      "descricao": "Soma dos valores de leads convertidos"
+    },
+    "custo_operacao": {
+      "custo_n8n": 20,
+      "custo_apis": 50,
+      "custo_google_workspace": 30,
+      "custo_telegram": 0,
+      "total_mensal": 100
+    },
+    "roi_mensal": {
+      "formula": "=(receita_gerada - custo_operacao) / custo_operacao * 100",
+      "meta": 400
+    },
+    "economia_tempo": {
+      "horas_poupadas_mes": "=COUNT(A:A) * 0.5",
+      "valor_hora_atendente": 25,
+      "economia_mensal": "=horas_poupadas * valor_hora"
+    }
+  },
+  "comparativo_manual_vs_automatizado": {
+    "manual": {
+      "tempo_resposta_horas": 4,
+      "taxa_conversao": 20,
+      "custo_por_lead": 150,
+      "disponibilidade": 40
+    },
+    "automatizado": {
+      "tempo_resposta_segundos": 30,
+      "taxa_conversao": 50,
+      "custo_por_lead": 25,
+      "disponibilidade": 99.9
+    }
+  },
+  "projecoes": {
+    "primeiro_mes": {
+      "leads_esperados": 100,
+      "conversao_esperada": 45,
+      "receita_estimada": 22500
+    },
+    "terceiro_mes": {
+      "leads_esperados": 300,
+      "conversao_esperada": 55,
+      "receita_estimada": 82500
+    }
+  }
+}

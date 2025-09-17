@@ -1,0 +1,56 @@
+# Dependências
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+
+# Arquivos temporários
+.tmp/
+temp/
+*.tmp
+
+# Configurações locais
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Credenciais e chaves
+credentials/
+keys/
+secrets/
+*.key
+*.pem
+*-key.json
+
+# N8N específico
+.n8n/
+n8n-data/
+
+# Google APIs
+google-credentials.json
+service-account.json
+
+# Cache
+.cache/
+*.cache
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-*
+
+# Backup files
+*.bak
+*.backup

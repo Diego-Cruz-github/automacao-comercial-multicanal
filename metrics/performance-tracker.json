@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "metricas_tempo_real": {
+    "tempo_resposta": {
+      "formula": "=AVERAGE(B:B)",
+      "meta": 30,
+      "unidade": "segundos"
+    },
+    "taxa_conversao": {
+      "formula": "=COUNTIF(D:D,\"agendado\")/COUNTA(A:A)*100",
+      "meta": 45,
+      "unidade": "porcentagem"
+    },
+    "satisfacao_cliente": {
+      "formula": "=AVERAGE(E:E)",
+      "meta": 8.5,
+      "unidade": "nota_1_10"
+    },
+    "disponibilidade": {
+      "formula": "=COUNTIF(F:F,\"online\")/COUNTA(F:F)*100",
+      "meta": 99.9,
+      "unidade": "porcentagem"
+    }
+  },
+  "kpis_semanais": {
+    "leads_qualificados": "=COUNTIF(D:D,\"qualificado\")",
+    "agendamentos_realizados": "=COUNTIF(D:D,\"agendado\")",
+    "transferencias_humano": "=COUNTIF(D:D,\"transferido\")",
+    "cancelamentos": "=COUNTIF(D:D,\"cancelado\")"
+  },
+  "alertas": {
+    "tempo_resposta_alto": ">60",
+    "satisfacao_baixa": "<7",
+    "taxa_conversao_baixa": "<30"
+  }
+}
