@@ -18,6 +18,7 @@
                     <circle cx="22" cy="20" r="3" fill="white"/>
                 </svg>
                 <span class="brand-name">AutoFlow</span>
+                <a href="https://diegofontedev.com.br/" target="_blank" class="made-by">MADE BY DIEGO FONTE</a>
             </div>
             <div class="nav-menu">
                 <a href="#features">Recursos</a>
@@ -34,8 +35,13 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-left">
-                    <div class="hero-badge">
-                        <span>N8N + Webhooks + IA</span>
+                    <div class="hero-badges">
+                        <div class="hero-badge">
+                            <span>N8N + Webhooks + IA</span>
+                        </div>
+                        <div class="hero-badge-alt">
+                            <span>Ou código limpo em Python</span>
+                        </div>
                     </div>
                     <h1 class="hero-title">
                         A automação que dá <span class="highlight">super poderes</span> 
@@ -51,13 +57,6 @@
                                 <polygon points="5,3 19,12 5,21 5,3"/>
                             </svg>
                             Ver Demo Funcionando
-                        </button>
-                        <button class="btn-secondary" onclick="window.open('http://localhost:5678/workflow/41jlfNswnGByWJXd', '_blank')">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="3"/>
-                                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
-                            </svg>
-                            Ver Workflow N8N
                         </button>
                     </div>
                     <div class="hero-stats">
@@ -104,7 +103,7 @@
                         <div class="chat-simulation">
                             <div class="chat-header">
                                 <span class="chat-title">AutoFlow Assistant</span>
-                                <span class="status-online">● Online</span>
+                                <span class="status-online">online</span>
                             </div>
                             <div class="chat-messages">
                                 <div class="message user">Olá! Preciso de ajuda com adequação LGPD da minha empresa</div>
@@ -277,7 +276,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Veja o workflow real em ação</h2>
-                <p>Screenshot do N8N executando nossa automação</p>
+                <p>Screenshot do N8N executando UM DOS DIVERSOS templates disponíveis</p>
             </div>
             <div class="workflow-display">
                 <div class="workflow-image">
@@ -396,10 +395,10 @@
             <div class="demo-container">
                 <div class="demo-left">
                     <div class="demo-form-container">
-                        <h3>Simule um atendimento</h3>
+                        <h3>🎯 Teste a Automação Inteligente</h3>
                         <p class="demo-description">
-                            Teste nossa automação inteligente em tempo real. Veja como o sistema processa 
-                            automaticamente sua mensagem e direciona para o fluxo correto.
+                            <strong>Como funciona:</strong> Escolha um setor → Clique em um cenário de teste → Veja a mágica acontecer!<br>
+                            <small style="color: var(--gray-600);">💡 Os cenários preenchem tudo automaticamente. Ou personalize à vontade!</small>
                         </p>
                         
                         <div class="template-selector-demo">
@@ -409,6 +408,46 @@
                                 <button class="sector-btn" data-sector="consultoria">Consultoria</button>
                                 <button class="sector-btn" data-sector="clinicas">Clínicas</button>
                             </div>
+                            
+                            <div class="quick-tests-inline">
+                                <h4>⚡ Teste com 1 clique (preenche tudo!):</h4>
+                                <div class="quick-buttons">
+                                    <button class="quick-btn" data-test="lgpd">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
+                                            <circle cx="12" cy="16" r="1"/>
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                        </svg>
+                                        🔒 LGPD/Compliance (aciona parceiro especialista)
+                                    </button>
+                                    <button class="quick-btn" data-test="urgencia">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12,6 12,12 16,14"/>
+                                        </svg>
+                                        🚨 Caso Urgente (prioridade máxima)
+                                    </button>
+                                    <button class="quick-btn" data-test="geral">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                        </svg>
+                                        💬 Consulta Geral (fluxo padrão)
+                                    </button>
+                                    <button class="quick-btn" data-test="orcamento">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6"/>
+                                            <line x1="8" y1="2" x2="8" y2="6"/>
+                                            <line x1="3" y1="10" x2="21" y2="10"/>
+                                        </svg>
+                                        💰 Orçamento (proposta comercial)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-separator">
+                            <span>Ou preencha manualmente</span>
                         </div>
                         
                         <form id="demoForm" class="demo-form">
@@ -466,42 +505,6 @@
                                 </span>
                             </button>
                         </form>
-
-                        <div class="quick-tests">
-                            <h4>Cenários de teste rápido:</h4>
-                            <div class="quick-buttons">
-                                <button class="quick-btn" data-test="lgpd">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="3" y="11" width="18" height="10" rx="2" ry="2"/>
-                                        <circle cx="12" cy="16" r="1"/>
-                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                    </svg>
-                                    Compliance/LGPD
-                                </button>
-                                <button class="quick-btn" data-test="urgencia">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <polyline points="12,6 12,12 16,14"/>
-                                    </svg>
-                                    Caso Urgente
-                                </button>
-                                <button class="quick-btn" data-test="geral">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                                    </svg>
-                                    Consulta Geral
-                                </button>
-                                <button class="quick-btn" data-test="orcamento">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                        <line x1="16" y1="2" x2="16" y2="6"/>
-                                        <line x1="8" y1="2" x2="8" y2="6"/>
-                                        <line x1="3" y1="10" x2="21" y2="10"/>
-                                    </svg>
-                                    Solicitação de Orçamento
-                                </button>
-                            </div>
-                        </div>
                         
                         <div class="demo-stats">
                             <div class="stat">
