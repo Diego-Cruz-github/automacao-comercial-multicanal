@@ -2,7 +2,7 @@
 
 Plataforma de automação comercial inteligente com detecção de palavras-chave, qualificação automática de leads e integração multicanal (Telegram, WhatsApp).
 
-🌐 **Demo ao vivo:** https://autoflow-demo.netlify.app
+🌐 **Demo ao vivo:** https://visionary-kulfi-996830.netlify.app
 
 ---
 
@@ -44,7 +44,6 @@ automacao-comercial-multicanal/
 ├── styles.css              # Estilos responsivos
 ├── script.js               # Lógica da aplicação
 ├── dashboard.html          # Dashboard de métricas
-├── assets/                 # Recursos visuais
 ├── configs/                # Templates por setor
 └── n8n-workflows/          # Workflows demonstrativos
 ```
@@ -58,7 +57,7 @@ automacao-comercial-multicanal/
 - **WhatsApp:** [(31) 98606-3092](https://wa.me/5531986063092)
 
 ### Simulador Web
-Acesse o [site](https://autoflow-demo.netlify.app) para testar:
+Acesse o [site](https://visionary-kulfi-996830.netlify.app) para testar:
 - Detecção LGPD/Compliance
 - Casos urgentes
 - Consultas gerais
