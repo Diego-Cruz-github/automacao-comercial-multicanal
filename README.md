@@ -53,8 +53,8 @@ automacao-comercial-multicanal/
 ## 📊 Demonstração
 
 ### Teste o Bot Real
-- **Telegram:** [@ZowTiBot](https://t.me/ZowTiBot)
-- **WhatsApp:** [(31) 98606-3092](https://wa.me/5531986063092)
+- **Telegram:** [@ZowTiBot](https://t.me/ZowTiBot) - Rodando 24/7
+- **WhatsApp:** Disponível mediante implementação (API paga)
 
 ### Simulador Web
 Acesse o [site](https://visionary-kulfi-996830.netlify.app) para testar:
