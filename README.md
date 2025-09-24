@@ -1,29 +1,31 @@
 # 🤖 AutoFlow - Automação Comercial Multicanal
 
-Plataforma de automação comercial inteligente com detecção de palavras-chave, qualificação automática de leads e integração multicanal (Telegram, WhatsApp).
+Chatbot inteligente que responde seus clientes automaticamente no WhatsApp e Telegram 24 horas por dia, 7 dias por semana. O sistema qualifica leads, identifica mensagens urgentes e conecta automaticamente com o especialista certo. Acompanhe todas as conversões em tempo real através de dashboards inteligentes com métricas detalhadas.
 
-🌐 **Demo ao vivo:** [https://visionary-kulfi-996830.netlify.app](https://visionary-kulfi-996830.netlify.app)  
-*Hospedado na Netlify (plataforma enterprise com HTTPS seguro) - Acesse para testar a automação em tempo real, visualizar os fluxos inteligentes e experimentar a detecção de palavras-chave em ação!*
+🌐 **Demo ao vivo:** [https://resonant-zabaione-b389ee.netlify.app](https://resonant-zabaione-b389ee.netlify.app)  
+*Hospedado na Netlify (plataforma enterprise com HTTPS seguro) - Acesse para testar a automação em tempo real e visualizar o dashboard com métricas!*
 
 ---
 
 ## 🚀 Funcionalidades
 
-### ✨ Automação Inteligente
+### 🤖 Atendimento Automático 24/7
+- **Chatbot inteligente** responde clientes automaticamente
+- **WhatsApp e Telegram** - Atendimento multicanal
 - **Detecção de palavras-chave** (LGPD, urgência, compliance)
 - **Qualificação automática** de leads
-- **Roteamento condicional** para especialistas
-- **Integração com parceiros** (cross-selling automático)
 
-### 📱 Multicanal
-- **Telegram** - Bot rodando 24/7
-- **WhatsApp** - API paga, implementação sob demanda
+### 📊 Dashboard Analytics
+- **Métricas em tempo real** de conversões e leads
+- **Gráficos interativos** de desempenho
+- **Timeline de atividades** detalhada
+- **Integração com CRM** (Salesforce, HubSpot, RD Station)
+- **Exportação para Power BI** e Google Sheets
 
 ### 🎯 Templates Demonstrativos
 - **Advocacia** - Triagem jurídica e encaminhamento
 - **Consultoria** - Qualificação empresarial
 - **Clínicas** - Agendamento por especialidade
-- **+ Infinitas possibilidades** - E-commerce, Imobiliárias, Escolas, etc.
 
 ---
 
@@ -58,11 +60,11 @@ automacao-comercial-multicanal/
 - **WhatsApp:** Disponível mediante implementação (API paga)
 
 ### Simulador Web
-Acesse o [site](https://visionary-kulfi-996830.netlify.app) para testar:
-- Detecção LGPD/Compliance
-- Casos urgentes
-- Consultas gerais
-- Orçamentos automatizados
+Acesse o [site](https://resonant-zabaione-b389ee.netlify.app) para testar:
+- Chatbot com detecção inteligente
+- Dashboard com métricas em tempo real
+- Múltiplos templates por setor
+- Integração multicanal
 
 ---
 
