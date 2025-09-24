@@ -2,7 +2,8 @@
 
 Plataforma de automação comercial inteligente com detecção de palavras-chave, qualificação automática de leads e integração multicanal (Telegram, WhatsApp).
 
-🌐 **Demo ao vivo:** https://visionary-kulfi-996830.netlify.app
+🌐 **Demo ao vivo:** [https://visionary-kulfi-996830.netlify.app](https://visionary-kulfi-996830.netlify.app)  
+*Hospedado na Netlify (plataforma enterprise com HTTPS seguro) - Acesse para testar a automação em tempo real, visualizar os fluxos inteligentes e experimentar a detecção de palavras-chave em ação!*
 
 ---
 
