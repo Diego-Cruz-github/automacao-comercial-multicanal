@@ -1,0 +1,441 @@
+{
+  "name": "🏢 Template Consultoria - Excellence Business",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST", 
+        "path": "consultoria-empresarial",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-consultoria",
+      "name": "📞 Recepção Excellence Business",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "cliente_nome",
+              "value": "={{$json.body.nome || $json.query.nome || 'Empresário'}}"
+            },
+            {
+              "name": "empresa_cliente",
+              "value": "={{$json.body.empresa || $json.query.empresa || ''}}"
+            },
+            {
+              "name": "cargo",
+              "value": "={{$json.body.cargo || $json.query.cargo || ''}}"
+            },
+            {
+              "name": "telefone",
+              "value": "={{$json.body.telefone || $json.query.telefone || ''}}"
+            },
+            {
+              "name": "email",
+              "value": "={{$json.body.email || $json.query.email || ''}}"
+            },
+            {
+              "name": "mensagem",
+              "value": "={{$json.body.mensagem || $json.query.mensagem || 'Preciso de consultoria empresarial'}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{new Date().toLocaleString('pt-BR')}}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{Math.random().toString(36).substring(7)}}"
+            },
+            {
+              "name": "consultoria_nome",
+              "value": "Excellence Business Consulting"
+            }
+          ]
+        }
+      },
+      "id": "processar-entrada-consultoria",
+      "name": "📋 Processar Dados Empresariais",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.mensagem.toLowerCase()}}",
+              "operation": "regex",
+              "value2": "(auditoria|segurança|compliance|lgpd|cyber|cibersegurança)"
+            }
+          ]
+        }
+      },
+      "id": "detectar-seguranca",
+      "name": "🔒 Detectar Segurança",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.mensagem.toLowerCase()}}",
+              "operation": "regex",
+              "value2": "(estratégia|estrategia|planejamento|gestão|gestao|crescimento)"
+            }
+          ]
+        }
+      },
+      "id": "detectar-estrategia",
+      "name": "📊 Detectar Estratégia",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "tipo_servico",
+              "value": "Segurança e Compliance"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "Olá {{$node[\"📋 Processar Dados Empresariais\"].json.cliente_nome}}! Aqui é da Excellence Business Consulting.\n\nVejo que você busca soluções em segurança e compliance. Esse é realmente um tema crítico para empresas modernas.\n\nPara melhor atendê-lo, gostaria de conectá-lo com nossa equipe especializada em governance?\n\n📋 Para personalizar nossa abordagem:\n• Qual o porte da {{$node[\"📋 Processar Dados Empresariais\"].json.empresa_cliente || 'sua empresa'}}?\n• Já passaram por alguma auditoria recentemente?\n• Há alguma regulamentação específica do setor?"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Consultoria especializada em governance"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "45 minutos"
+            },
+            {
+              "name": "cross_sales_trigger",
+              "value": "seguranca_compliance"
+            },
+            {
+              "name": "valor_estimado",
+              "value": "R$ 2.500 - R$ 8.000"
+            }
+          ]
+        }
+      },
+      "id": "processar-seguranca",
+      "name": "🔒 Processar Segurança",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 100]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "tipo_servico",
+              "value": "Estratégia e Gestão"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "{{$node[\"📋 Processar Dados Empresariais\"].json.cliente_nome}}, que bom saber do seu interesse em estratégia empresarial!\n\nA Excellence Business tem vasta experiência em transformação e crescimento de empresas.\n\nGostaria de agendar uma conversa com nosso time de estrategistas sênior?\n\n📊 Áreas que podemos abordar:\n• Planejamento estratégico\n• Otimização de processos\n• Análise de mercado\n• Gestão de performance"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Consultoria estratégica executiva"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "60 minutos"
+            },
+            {
+              "name": "valor_estimado",
+              "value": "R$ 3.000 - R$ 12.000"
+            }
+          ]
+        }
+      },
+      "id": "processar-estrategia",
+      "name": "📊 Processar Estratégia",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "tipo_servico",
+              "value": "Consultoria Geral"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "Olá {{$node[\"📋 Processar Dados Empresariais\"].json.cliente_nome}}! Bem-vindo à Excellence Business Consulting.\n\nEstamos aqui para impulsionar o crescimento da {{$node[\"📋 Processar Dados Empresariais\"].json.empresa_cliente || 'sua empresa'}}.\n\nPara direcionarmos a melhor solução, gostaria de falar com nosso departamento comercial especializado?\n\n💼 Principais áreas de atuação:\n• Consultoria estratégica\n• Gestão de processos\n• Compliance e governance\n• Transformação digital"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Diagnóstico empresarial"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "30 minutos"
+            },
+            {
+              "name": "valor_estimado",
+              "value": "Consulte"
+            }
+          ]
+        }
+      },
+      "id": "processar-geral-consultoria",
+      "name": "📝 Processar Geral",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.cross_sales_trigger}}",
+              "operation": "equal",
+              "value2": "seguranca_compliance"
+            }
+          ]
+        }
+      },
+      "id": "check-cross-sales-consultoria",
+      "name": "🎯 Cross-Sales Segurança?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "resposta_final",
+              "value": "{{$json.resposta_bot}}\n\n🤝 **Parceria Estratégica:**\nPara questões técnicas de cibersegurança e compliance, trabalhamos em parceria com especialistas altamente qualificados.\n\n🔒 **ZowTi Cibersegurança - Nosso Parceiro Técnico**\n• Auditoria completa de segurança\n• Implementação de compliance (LGPD, ISO)\n• Resposta a incidentes\n• Consultoria técnica especializada\n\n📱 Contato direto: +55 (31) 98606-3092\n🌐 Site: www.zowti.com\n\n💼 A Excellence Business cuida da estratégia, a ZowTi cuida da segurança - parceria perfeita para sua empresa!"
+            },
+            {
+              "name": "cross_sales_aplicado",
+              "value": "ZowTi parceria técnica"
+            },
+            {
+              "name": "lead_qualificado_zowti",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "id": "aplicar-cross-sales-consultoria",
+      "name": "🤝 Aplicar Cross-Sales ZowTi",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1340, 200]
+    },
+    {
+      "parameters": {
+        "fileName": "leads-consultoria-{{$node[\"📋 Processar Dados Empresariais\"].json.session_id}}.json",
+        "fileContent": "{\n  \"lead_id\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.session_id}}\",\n  \"timestamp\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.timestamp}}\",\n  \"consultoria\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.consultoria_nome}}\",\n  \"cliente\": {\n    \"nome\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.cliente_nome}}\",\n    \"empresa\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.empresa_cliente}}\",\n    \"cargo\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.cargo}}\",\n    \"telefone\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.telefone}}\",\n    \"email\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.email}}\"\n  },\n  \"atendimento\": {\n    \"mensagem_original\": \"{{$node[\"📋 Processar Dados Empresariais\"].json.mensagem}}\",\n    \"tipo_servico\": \"{{$json.tipo_servico}}\",\n    \"proximos_passos\": \"{{$json.proximos_passos}}\",\n    \"tempo_estimado\": \"{{$json.tempo_estimado}}\",\n    \"valor_estimado\": \"{{$json.valor_estimado}}\"\n  },\n  \"cross_sales\": {\n    \"aplicado\": \"{{$json.cross_sales_aplicado || 'Não aplicado'}}\",\n    \"lead_qualificado_zowti\": \"{{$json.lead_qualificado_zowti || 'false'}}\"\n  },\n  \"template\": \"consultoria_empresarial\",\n  \"status\": \"processado\"\n}"
+      },
+      "id": "salvar-lead-consultoria",
+      "name": "💾 Salvar Lead Consultoria",
+      "type": "n8n-nodes-base.writeFile",
+      "typeVersion": 1,
+      "position": [1560, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": {
+          "status": "✅ ATENDIMENTO PROCESSADO",
+          "consultoria": "Excellence Business Consulting",
+          "cliente": "{{$node[\"📋 Processar Dados Empresariais\"].json.cliente_nome}}",
+          "empresa_cliente": "{{$node[\"📋 Processar Dados Empresariais\"].json.empresa_cliente}}",
+          "resposta": "{{$json.resposta_final || $json.resposta_bot}}",
+          "servico": {
+            "tipo": "{{$json.tipo_servico}}",
+            "proximos_passos": "{{$json.proximos_passos}}",
+            "tempo_estimado": "{{$json.tempo_estimado}}",
+            "valor_estimado": "{{$json.valor_estimado}}"
+          },
+          "contato": {
+            "telefone": "(31) 2222-3333",
+            "whatsapp": "(31) 99888-7777",
+            "email": "contato@abcconsultoria.com.br"
+          },
+          "parceria_tecnica": {
+            "zowti_ciberseguranca": "+55 (31) 98606-3092",
+            "especialidade": "Auditoria e Compliance Técnico",
+            "website": "www.zowti.com"
+          },
+          "demo_info": {
+            "template": "consultoria_empresarial",
+            "lead_salvo": "leads-consultoria-{{$node[\"📋 Processar Dados Empresariais\"].json.session_id}}.json",
+            "cross_sales": "{{$json.cross_sales_aplicado || 'Não aplicado'}}"
+          }
+        }
+      },
+      "id": "resposta-consultoria",
+      "name": "📤 Resposta Consultoria",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1780, 300]
+    }
+  ],
+  "connections": {
+    "📞 Recepção ABC Consultoria": {
+      "main": [
+        [
+          {
+            "node": "📋 Processar Dados Empresariais",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Processar Dados Empresariais": {
+      "main": [
+        [
+          {
+            "node": "🔒 Detectar Segurança",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "📊 Detectar Estratégia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔒 Detectar Segurança": {
+      "main": [
+        [
+          {
+            "node": "🔒 Processar Segurança",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📊 Detectar Estratégia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Detectar Estratégia": {
+      "main": [
+        [
+          {
+            "node": "📊 Processar Estratégia",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📝 Processar Geral",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔒 Processar Segurança": {
+      "main": [
+        [
+          {
+            "node": "🎯 Cross-Sales Segurança?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Processar Estratégia": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead Consultoria",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📝 Processar Geral": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead Consultoria",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 Cross-Sales Segurança?": {
+      "main": [
+        [
+          {
+            "node": "🤝 Aplicar Cross-Sales ZowTi",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "💾 Salvar Lead Consultoria",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🤝 Aplicar Cross-Sales ZowTi": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead Consultoria",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💾 Salvar Lead Consultoria": {
+      "main": [
+        [
+          {
+            "node": "📤 Resposta Consultoria",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "timezone": "America/Sao_Paulo"
+  },
+  "versionId": "2.0"
+}

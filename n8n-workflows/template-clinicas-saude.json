@@ -1,0 +1,456 @@
+{
+  "name": "🏥 Template Clínicas - Centro Médico Bem Viver",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "centro-medico-bem-viver",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-clinica",
+      "name": "🏥 Recepção Centro Médico",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "paciente_nome",
+              "value": "={{$json.body.nome || $json.query.nome || 'Paciente'}}"
+            },
+            {
+              "name": "clinica_nome",
+              "value": "={{$json.body.clinica || $json.query.clinica || ''}}"
+            },
+            {
+              "name": "cargo_funcao",
+              "value": "={{$json.body.cargo || $json.query.cargo || ''}}"
+            },
+            {
+              "name": "telefone",
+              "value": "={{$json.body.telefone || $json.query.telefone || ''}}"
+            },
+            {
+              "name": "email",
+              "value": "={{$json.body.email || $json.query.email || ''}}"
+            },
+            {
+              "name": "mensagem",
+              "value": "={{$json.body.mensagem || $json.query.mensagem || 'Preciso de orientação sobre compliance médico'}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{new Date().toLocaleString('pt-BR')}}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{Math.random().toString(36).substring(7)}}"
+            },
+            {
+              "name": "clinica_responsavel",
+              "value": "Centro Médico Bem Viver"
+            }
+          ]
+        }
+      },
+      "id": "processar-entrada-clinica",
+      "name": "📋 Processar Dados Médicos",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.mensagem.toLowerCase()}}",
+              "operation": "regex",
+              "value2": "(lgpd|privacidade|dados|compliance|adequação|adequacao)"
+            }
+          ]
+        }
+      },
+      "id": "detectar-lgpd-medica",
+      "name": "🔒 Detectar LGPD Médica",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.mensagem.toLowerCase()}}",
+              "operation": "regex",
+              "value2": "(sistema|software|tecnologia|digital|eletrônico|eletronico|informatização|informatizacao)"
+            }
+          ]
+        }
+      },
+      "id": "detectar-tecnologia",
+      "name": "💻 Detectar Tecnologia",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "tipo_servico",
+              "value": "LGPD para Área da Saúde"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "Olá {{$node[\"📋 Processar Dados Médicos\"].json.paciente_nome}}! Aqui é do Centro Médico Bem Viver.\n\nA adequação à LGPD na área da saúde é realmente fundamental e possui especificidades muito importantes.\n\nPara melhor orientá-lo, gostaria de conectá-lo com nosso setor de compliance médico?\n\n🏥 Informações importantes para análise:\n• {{$node[\"📋 Processar Dados Médicos\"].json.clinica_nome || 'Sua clínica'}} atende quantos pacientes/mês?\n• Já possuem prontuário eletrônico?\n• Houve alguma demanda específica do CFM ou órgãos reguladores?\n\n📋 A LGPD na saúde envolve dados sensíveis e requer cuidado especial."
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Consultoria LGPD especializada em saúde"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "45 minutos"
+            },
+            {
+              "name": "cross_sales_trigger",
+              "value": "lgpd_saude"
+            },
+            {
+              "name": "valor_estimado",
+              "value": "R$ 2.000 - R$ 6.000"
+            },
+            {
+              "name": "urgencia",
+              "value": "alta"
+            }
+          ]
+        }
+      },
+      "id": "processar-lgpd-medica",
+      "name": "🔒 Processar LGPD Médica",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 100]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "tipo_servico",
+              "value": "Tecnologia e Sistemas Médicos"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "{{$node[\"📋 Processar Dados Médicos\"].json.paciente_nome}}, que ótimo saber do interesse em modernização tecnológica!\n\nO Centro Médico Bem Viver tem experiência em implementação de sistemas médicos seguros.\n\nGostaria de falar com nossa equipe de tecnologia médica?\n\n💻 Soluções que oferecemos:\n• Prontuário eletrônico seguro\n• Sistemas de gestão clínica\n• Telemedicina compliance\n• Integração com laboratórios"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Consultoria em tecnologia médica"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "30 minutos"
+            },
+            {
+              "name": "valor_estimado",
+              "value": "R$ 1.500 - R$ 8.000"
+            }
+          ]
+        }
+      },
+      "id": "processar-tecnologia",
+      "name": "💻 Processar Tecnologia",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "tipo_servico",
+              "value": "Consultoria Geral Médica"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "Olá {{$node[\"📋 Processar Dados Médicos\"].json.paciente_nome}}! Bem-vindo ao Centro Médico Bem Viver.\n\nEstamos aqui para auxiliar {{$node[\"📋 Processar Dados Médicos\"].json.clinica_nome || 'sua clínica'}} em suas necessidades.\n\nPara direcionarmos o melhor atendimento, gostaria de falar com nossa equipe de consultoria médica?\n\n🏥 Principais áreas de atuação:\n• Compliance e regulamentações\n• Gestão clínica e operacional\n• Tecnologia e prontuários\n• Qualidade e acreditação"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Diagnóstico de necessidades médicas"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "20 minutos"
+            },
+            {
+              "name": "valor_estimado",
+              "value": "Consulte"
+            }
+          ]
+        }
+      },
+      "id": "processar-geral-medico",
+      "name": "📝 Processar Geral Médico",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.cross_sales_trigger}}",
+              "operation": "equal",
+              "value2": "lgpd_saude"
+            }
+          ]
+        }
+      },
+      "id": "check-cross-sales-medico",
+      "name": "🎯 Cross-Sales LGPD?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "resposta_final",
+              "value": "{{$json.resposta_bot}}\n\n🤝 **Parceria Especializada em Saúde:**\nPara questões técnicas de LGPD e cibersegurança na área médica, trabalhamos com parceiros altamente especializados.\n\n🔒 **ZowTi Cibersegurança - Especialistas em LGPD Médica**\n• Adequação LGPD específica para clínicas e hospitais\n• Auditoria de segurança em dados médicos\n• Implementação de controles para dados sensíveis\n• Consultoria integrada técnica + jurídica\n• Experiência com CFM e órgãos reguladores\n\n📱 Contato especializado: +55 (31) 98606-3092\n🌐 Site: www.zowti.com\n\n🏥 O Centro Médico Bem Viver recomenda: cuidamos da gestão, a ZowTi cuida da segurança dos dados dos seus pacientes!"
+            },
+            {
+              "name": "cross_sales_aplicado",
+              "value": "ZowTi LGPD médica"
+            },
+            {
+              "name": "lead_qualificado_zowti",
+              "value": "true"
+            },
+            {
+              "name": "especialidade",
+              "value": "LGPD_saude"
+            }
+          ]
+        }
+      },
+      "id": "aplicar-cross-sales-medico",
+      "name": "🤝 Cross-Sales ZowTi Médico",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1340, 200]
+    },
+    {
+      "parameters": {
+        "fileName": "leads-clinica-{{$node[\"📋 Processar Dados Médicos\"].json.session_id}}.json",
+        "fileContent": "{\n  \"lead_id\": \"{{$node[\"📋 Processar Dados Médicos\"].json.session_id}}\",\n  \"timestamp\": \"{{$node[\"📋 Processar Dados Médicos\"].json.timestamp}}\",\n  \"clinica_responsavel\": \"{{$node[\"📋 Processar Dados Médicos\"].json.clinica_responsavel}}\",\n  \"cliente\": {\n    \"nome\": \"{{$node[\"📋 Processar Dados Médicos\"].json.paciente_nome}}\",\n    \"clinica_origem\": \"{{$node[\"📋 Processar Dados Médicos\"].json.clinica_nome}}\",\n    \"cargo_funcao\": \"{{$node[\"📋 Processar Dados Médicos\"].json.cargo_funcao}}\",\n    \"telefone\": \"{{$node[\"📋 Processar Dados Médicos\"].json.telefone}}\",\n    \"email\": \"{{$node[\"📋 Processar Dados Médicos\"].json.email}}\"\n  },\n  \"atendimento\": {\n    \"mensagem_original\": \"{{$node[\"📋 Processar Dados Médicos\"].json.mensagem}}\",\n    \"tipo_servico\": \"{{$json.tipo_servico}}\",\n    \"proximos_passos\": \"{{$json.proximos_passos}}\",\n    \"tempo_estimado\": \"{{$json.tempo_estimado}}\",\n    \"valor_estimado\": \"{{$json.valor_estimado}}\",\n    \"urgencia\": \"{{$json.urgencia || 'normal'}}\"\n  },\n  \"cross_sales\": {\n    \"aplicado\": \"{{$json.cross_sales_aplicado || 'Não aplicado'}}\",\n    \"lead_qualificado_zowti\": \"{{$json.lead_qualificado_zowti || 'false'}}\",\n    \"especialidade\": \"{{$json.especialidade || 'geral'}}\"\n  },\n  \"template\": \"clinica_saude\",\n  \"setor\": \"saude\",\n  \"status\": \"processado\"\n}"
+      },
+      "id": "salvar-lead-clinica",
+      "name": "💾 Salvar Lead Clínica",
+      "type": "n8n-nodes-base.writeFile",
+      "typeVersion": 1,
+      "position": [1560, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": {
+          "status": "✅ ATENDIMENTO PROCESSADO",
+          "clinica": "Centro Médico Bem Viver",
+          "cliente": "{{$node[\"📋 Processar Dados Médicos\"].json.paciente_nome}}",
+          "clinica_origem": "{{$node[\"📋 Processar Dados Médicos\"].json.clinica_nome}}",
+          "resposta": "{{$json.resposta_final || $json.resposta_bot}}",
+          "servico_medico": {
+            "tipo": "{{$json.tipo_servico}}",
+            "proximos_passos": "{{$json.proximos_passos}}",
+            "tempo_estimado": "{{$json.tempo_estimado}}",
+            "valor_estimado": "{{$json.valor_estimado}}",
+            "urgencia": "{{$json.urgencia || 'normal'}}"
+          },
+          "contato": {
+            "telefone": "(31) 3333-5555",
+            "whatsapp": "(31) 99777-6666",
+            "email": "contato@saudetotal.med.br"
+          },
+          "parceria_especializada": {
+            "zowti_ciberseguranca": "+55 (31) 98606-3092",
+            "especialidade": "LGPD e Compliance Médico",
+            "website": "www.zowti.com",
+            "diferencial": "Especialistas em dados sensíveis da saúde"
+          },
+          "regulamentacao": {
+            "cfm": "Atendemos normas do Conselho Federal de Medicina",
+            "anvisa": "Compliance com regulamentações ANVISA",
+            "lgpd_saude": "Especialização em dados sensíveis médicos"
+          },
+          "demo_info": {
+            "template": "clinica_saude",
+            "lead_salvo": "leads-clinica-{{$node[\"📋 Processar Dados Médicos\"].json.session_id}}.json",
+            "cross_sales": "{{$json.cross_sales_aplicado || 'Não aplicado'}}"
+          }
+        }
+      },
+      "id": "resposta-clinica",
+      "name": "📤 Resposta Clínica",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1780, 300]
+    }
+  ],
+  "connections": {
+    "🏥 Recepção Clínica": {
+      "main": [
+        [
+          {
+            "node": "📋 Processar Dados Médicos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Processar Dados Médicos": {
+      "main": [
+        [
+          {
+            "node": "🔒 Detectar LGPD Médica",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "💻 Detectar Tecnologia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔒 Detectar LGPD Médica": {
+      "main": [
+        [
+          {
+            "node": "🔒 Processar LGPD Médica",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "💻 Detectar Tecnologia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💻 Detectar Tecnologia": {
+      "main": [
+        [
+          {
+            "node": "💻 Processar Tecnologia",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📝 Processar Geral Médico",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔒 Processar LGPD Médica": {
+      "main": [
+        [
+          {
+            "node": "🎯 Cross-Sales LGPD?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💻 Processar Tecnologia": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead Clínica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📝 Processar Geral Médico": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead Clínica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 Cross-Sales LGPD?": {
+      "main": [
+        [
+          {
+            "node": "🤝 Cross-Sales ZowTi Médico",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "💾 Salvar Lead Clínica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🤝 Cross-Sales ZowTi Médico": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead Clínica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💾 Salvar Lead Clínica": {
+      "main": [
+        [
+          {
+            "node": "📤 Resposta Clínica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "timezone": "America/Sao_Paulo"
+  },
+  "versionId": "2.0"
+}

@@ -1,0 +1,422 @@
+{
+  "name": "🏛️ Template Advocacia - Silva & Associados",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "advocacia-atendimento",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-advocacia",
+      "name": "📞 Recepção Escritório",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "cliente_nome",
+              "value": "={{$json.body.nome || $json.query.nome || 'Cliente'}}"
+            },
+            {
+              "name": "cliente_telefone", 
+              "value": "={{$json.body.telefone || $json.query.telefone || ''}}"
+            },
+            {
+              "name": "cliente_email",
+              "value": "={{$json.body.email || $json.query.email || ''}}"
+            },
+            {
+              "name": "mensagem",
+              "value": "={{$json.body.mensagem || $json.query.mensagem || 'Preciso de ajuda jurídica'}}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{new Date().toLocaleString('pt-BR')}}"
+            },
+            {
+              "name": "session_id",
+              "value": "={{Math.random().toString(36).substring(7)}}"
+            },
+            {
+              "name": "empresa_nome",
+              "value": "Escritório Jurídico Silva & Associados"
+            }
+          ]
+        }
+      },
+      "id": "processar-entrada",
+      "name": "📋 Processar Dados",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.mensagem.toLowerCase()}}",
+              "operation": "contains",
+              "value2": "lgpd"
+            }
+          ]
+        }
+      },
+      "id": "detectar-lgpd",
+      "name": "🔒 Detectar LGPD",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.mensagem.toLowerCase()}}",
+              "operation": "regex",
+              "value2": "(urgente|urgência|emergência|prazo|hoje|agora)"
+            }
+          ]
+        }
+      },
+      "id": "detectar-urgencia",
+      "name": "🚨 Detectar Urgência",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "area_juridica",
+              "value": "LGPD e Compliance"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "Olá {{$node[\"📋 Processar Dados\"].json.cliente_nome}}! Aqui é do Escritório Silva & Associados.\n\nVejo que você tem questões sobre LGPD. Este é realmente um assunto crítico para empresas.\n\nPara melhor atendê-lo, gostaria de conectá-lo com nosso setor de compliance especializado?\n\n📋 Algumas informações importantes:\n• Sua empresa tem quantos funcionários?\n• Já possui alguma política de LGPD implementada?\n• Houve algum incidente recente?"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Agendar consultoria especializada"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "30 minutos"
+            },
+            {
+              "name": "cross_sales_trigger",
+              "value": "lgpd_compliance"
+            }
+          ]
+        }
+      },
+      "id": "processar-lgpd",
+      "name": "📋 Processar LGPD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 100]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "area_juridica",
+              "value": "Urgência Jurídica"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "{{$node[\"📋 Processar Dados\"].json.cliente_nome}}, entendo que se trata de uma situação urgente.\n\nO Escritório Silva & Associados está preparado para atendimentos emergenciais.\n\nGostaria de falar AGORA com um dos nossos advogados responsáveis?\n\n⏰ Podemos conectá-lo em até 10 minutos.\n\n📋 Para agilizar:\n• Qual a natureza da urgência?\n• Área jurídica envolvida?\n• Há prazos envolvidos?"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Transferência imediata para advogado"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "10 minutos"
+            },
+            {
+              "name": "prioridade",
+              "value": "ALTA"
+            }
+          ]
+        }
+      },
+      "id": "processar-urgencia",
+      "name": "🚑 Processar Urgência",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "area_juridica",
+              "value": "Consultoria Geral"
+            },
+            {
+              "name": "resposta_bot",
+              "value": "Olá {{$node[\"📋 Processar Dados\"].json.cliente_nome}}! Bem-vindo ao Escritório Silva & Associados.\n\nEstamos aqui para ajudá-lo com sua questão jurídica.\n\nPara direcionarmos melhor seu atendimento, gostaria de falar com nosso departamento jurídico especializado?\n\n📋 Informações que nos ajudariam:\n• Qual área jurídica?\n• É pessoa física ou jurídica?\n• Há algum prazo específico?"
+            },
+            {
+              "name": "proximos_passos",
+              "value": "Qualificação e agendamento"
+            },
+            {
+              "name": "tempo_estimado",
+              "value": "15 minutos"
+            }
+          ]
+        }
+      },
+      "id": "processar-geral",
+      "name": "📝 Processar Geral",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.cross_sales_trigger}}",
+              "operation": "equal",
+              "value2": "lgpd_compliance"
+            }
+          ]
+        }
+      },
+      "id": "check-cross-sales",
+      "name": "🎯 Cross-Sales?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "resposta_final",
+              "value": "{{$json.resposta_bot}}\n\n💡 **Dica Importante:**\nPara questões de LGPD e compliance, conte com nosso parceiro estratégico especializado.\n\n🔒 **ZowTi Cibersegurança**\n• Especialistas em LGPD para escritórios jurídicos\n• Auditoria completa de compliance\n• Consultoria técnica e jurídica integrada\n\n📱 Avaliação gratuita: +55 (31) 98606-3092\n🌐 Site: www.zowti.com\n\n⚖️ O Silva & Associados recomenda e trabalha em parceria para garantir total segurança aos nossos clientes."
+            },
+            {
+              "name": "cross_sales_aplicado",
+              "value": "ZowTi indicada para LGPD"
+            },
+            {
+              "name": "lead_qualificado",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "id": "aplicar-cross-sales",
+      "name": "🤝 Aplicar Cross-Sales",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1340, 200]
+    },
+    {
+      "parameters": {
+        "fileName": "leads-advocacia-{{$node[\"📋 Processar Dados\"].json.session_id}}.json",
+        "fileContent": "{\n  \"lead_id\": \"{{$node[\"📋 Processar Dados\"].json.session_id}}\",\n  \"timestamp\": \"{{$node[\"📋 Processar Dados\"].json.timestamp}}\",\n  \"empresa\": \"{{$node[\"📋 Processar Dados\"].json.empresa_nome}}\",\n  \"cliente\": {\n    \"nome\": \"{{$node[\"📋 Processar Dados\"].json.cliente_nome}}\",\n    \"telefone\": \"{{$node[\"📋 Processar Dados\"].json.cliente_telefone}}\",\n    \"email\": \"{{$node[\"📋 Processar Dados\"].json.cliente_email}}\"\n  },\n  \"atendimento\": {\n    \"mensagem_original\": \"{{$node[\"📋 Processar Dados\"].json.mensagem}}\",\n    \"area_identificada\": \"{{$json.area_juridica}}\",\n    \"proximos_passos\": \"{{$json.proximos_passos}}\",\n    \"tempo_estimado\": \"{{$json.tempo_estimado}}\"\n  },\n  \"cross_sales\": {\n    \"aplicado\": \"{{$json.cross_sales_aplicado || 'Não aplicado'}}\",\n    \"lead_qualificado\": \"{{$json.lead_qualificado || 'false'}}\"\n  },\n  \"template\": \"advocacia\",\n  \"status\": \"processado\"\n}"
+      },
+      "id": "salvar-lead",
+      "name": "💾 Salvar Lead",
+      "type": "n8n-nodes-base.writeFile",
+      "typeVersion": 1,
+      "position": [1560, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": {
+          "status": "✅ ATENDIMENTO PROCESSADO",
+          "escritorio": "Silva & Associados",
+          "cliente": "{{$node[\"📋 Processar Dados\"].json.cliente_nome}}",
+          "resposta": "{{$json.resposta_final || $json.resposta_bot}}",
+          "atendimento": {
+            "area": "{{$json.area_juridica}}",
+            "proximos_passos": "{{$json.proximos_passos}}",
+            "tempo_estimado": "{{$json.tempo_estimado}}"
+          },
+          "contato": {
+            "telefone": "(31) 3333-4444",
+            "whatsapp": "(31) 99999-8888",
+            "email": "contato@silvaassociados.adv.br"
+          },
+          "parceria": {
+            "zowti_ciberseguranca": "+55 (31) 98606-3092",
+            "especialidade": "LGPD e Compliance Jurídico"
+          },
+          "demo_info": {
+            "template": "advocacia",
+            "lead_salvo": "leads-advocacia-{{$node[\"📋 Processar Dados\"].json.session_id}}.json",
+            "cross_sales": "{{$json.cross_sales_aplicado || 'Não aplicado'}}"
+          }
+        }
+      },
+      "id": "resposta-advocacia",
+      "name": "📤 Resposta Advocacia",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1780, 300]
+    }
+  ],
+  "connections": {
+    "📞 Recepção Escritório": {
+      "main": [
+        [
+          {
+            "node": "📋 Processar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Processar Dados": {
+      "main": [
+        [
+          {
+            "node": "🔒 Detectar LGPD",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🚨 Detectar Urgência",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔒 Detectar LGPD": {
+      "main": [
+        [
+          {
+            "node": "📋 Processar LGPD",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "🚨 Detectar Urgência",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🚨 Detectar Urgência": {
+      "main": [
+        [
+          {
+            "node": "🚑 Processar Urgência",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "📝 Processar Geral",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Processar LGPD": {
+      "main": [
+        [
+          {
+            "node": "🎯 Cross-Sales?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🚑 Processar Urgência": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📝 Processar Geral": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 Cross-Sales?": {
+      "main": [
+        [
+          {
+            "node": "🤝 Aplicar Cross-Sales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "💾 Salvar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🤝 Aplicar Cross-Sales": {
+      "main": [
+        [
+          {
+            "node": "💾 Salvar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💾 Salvar Lead": {
+      "main": [
+        [
+          {
+            "node": "📤 Resposta Advocacia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "timezone": "America/Sao_Paulo"
+  },
+  "versionId": "2.0"
+}

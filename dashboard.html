@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Dashboard - Automação Comercial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card.success { border-color: #28a745; }
+        .stat-card.warning { border-color: #ffc107; }
+        .stat-card.info { border-color: #17a2b8; }
+        .stat-card.danger { border-color: #dc3545; }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .workflows-section {
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .workflows-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .workflow-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .workflow-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-testing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .workflow-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .workflow-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .workflow-metrics {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        
+        .metric-label {
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.8em;
+        }
+        
+        .test-section {
+            padding: 30px;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Dashboard de Automação</h1>
+            <p>Monitoramento em Tempo Real dos Workflows N8N</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card success">
+                <div class="stat-number" id="total-workflows">4</div>
+                <div class="stat-label">Workflows Ativos</div>
+            </div>
+            
+            <div class="stat-card info">
+                <div class="stat-number" id="leads-today">0</div>
+                <div class="stat-label">Leads Hoje</div>
+            </div>
+            
+            <div class="stat-card warning">
+                <div class="stat-number" id="conversion-rate">0%</div>
+                <div class="stat-label">Taxa Conversão</div>
+            </div>
+            
+            <div class="stat-card danger">
+                <div class="stat-number" id="response-time">0ms</div>
+                <div class="stat-label">Tempo Resposta</div>
+            </div>
+        </div>
+        
+        <div class="workflows-section">
+            <h2 class="workflows-title">🔄 Workflows Disponíveis</h2>
+            
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <div class="workflow-status status-active">🟢 ATIVO</div>
+                    <div class="workflow-name">Bot Principal</div>
+                    <div class="workflow-description">
+                        Conversação principal para cibersegurança com detecção de emergências e agendamento automático.
+                    </div>
+                    <div class="workflow-metrics">
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Leads</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Agendados</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0%</div>
+                            <div class="metric-label">Conversão</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workflow-card">
+                    <div class="workflow-status status-active">🟢 ATIVO</div>
+                    <div class="workflow-name">Template Advocacia</div>
+                    <div class="workflow-description">
+                        Especializado para escritórios jurídicos com classificação de áreas e detecção de urgência.
+                    </div>
+                    <div class="workflow-metrics">
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Casos</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Urgentes</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0%</div>
+                            <div class="metric-label">Conversão</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workflow-card">
+                    <div class="workflow-status status-active">🟢 ATIVO</div>
+                    <div class="workflow-name">Template Estética</div>
+                    <div class="workflow-description">
+                        Para clínicas de estética com qualificação de orçamento e agendamento de avaliações.
+                    </div>
+                    <div class="workflow-metrics">
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Clientes</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Avaliações</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0%</div>
+                            <div class="metric-label">Conversão</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workflow-card">
+                    <div class="workflow-status status-testing">🟡 TESTE</div>
+                    <div class="workflow-name">Simulador de Testes</div>
+                    <div class="workflow-description">
+                        Framework de testes automatizados para validação de todos os workflows e cenários.
+                    </div>
+                    <div class="workflow-metrics">
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Testes</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Sucessos</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">0%</div>
+                            <div class="metric-label">Taxa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="workflows-title">🧪 Testes e Validação</h2>
+            <button class="test-button" onclick="runTests()">
+                🚀 Executar Testes Automatizados
+            </button>
+            <button class="test-button" onclick="openN8N()">
+                ⚙️ Abrir N8N Dashboard
+            </button>
+            <button class="test-button" onclick="openSheets()">
+                📊 Ver Google Sheets CRM
+            </button>
+            <button class="test-button" onclick="refreshData()">
+                🔄 Atualizar Dados
+            </button>
+        </div>
+        
+        <div class="footer">
+            <p>✨ Sistema criado seguindo a filosofia "MENOS É MAIS" para máxima conversão</p>
+            <p>📈 Monitoramento em tempo real • 🔒 Dados seguros • 🚀 Performance otimizada</p>
+        </div>
+    </div>
+    
+    <script>
+        // Simular dados em tempo real
+        function updateStats() {
+            // Simular dados aleatórios para demonstração
+            const leads = Math.floor(Math.random() * 50) + 10;
+            const conversion = (Math.random() * 30 + 10).toFixed(1);
+            const responseTime = Math.floor(Math.random() * 500) + 100;
+            
+            document.getElementById('leads-today').textContent = leads;
+            document.getElementById('conversion-rate').textContent = conversion + '%';
+            document.getElementById('response-time').textContent = responseTime + 'ms';
+        }
+        
+        function runTests() {
+            alert('🧪 Executando testes automatizados...\n\nComando: node test_automation.js\n\nVerifique o terminal para resultados.');
+            // Em produção, faria uma chamada AJAX para executar os testes
+        }
+        
+        function openN8N() {
+            window.open('http://localhost:5678', '_blank');
+        }
+        
+        function openSheets() {
+            window.open('https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit', '_blank');
+        }
+        
+        function refreshData() {
+            updateStats();
+            const button = event.target;
+            button.textContent = '✅ Atualizado!';
+            button.classList.add('pulse');
+            
+            setTimeout(() => {
+                button.textContent = '🔄 Atualizar Dados';
+                button.classList.remove('pulse');
+            }, 2000);
+        }
+        
+        // Atualizar dados a cada 30 segundos
+        setInterval(updateStats, 30000);
+        
+        // Atualizar dados iniciais
+        updateStats();
+        
+        // Adicionar animação aos cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.stat-card, .workflow-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

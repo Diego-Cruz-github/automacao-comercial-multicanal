@@ -54,3 +54,6 @@ Thumbs.db
 # Backup files
 *.bak
 *.backup
+
+# Arquivos internos do projeto (não publicar)
+ARQUIVOS NÃO APARECER NO PROJETO/

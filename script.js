@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeQuickTests();
     initializeJsonToggle();
     initializeSectorButtons();
+    initializeMobileMenu();
     addScrollEffects();
 });
 
@@ -82,6 +83,12 @@ function updateQuickTestScenarios(template) {
             { test: 'emergencia', icon: '🚨', text: 'Consulta de Emergência' },
             { test: 'checkup', icon: '🩺', text: 'Check-up Completo' },
             { test: 'retorno', icon: '📋', text: 'Retorno/Acompanhamento' }
+        ],
+        infinitas: [
+            { test: 'ecommerce', icon: '🛒', text: 'E-commerce - Atendimento 24/7' },
+            { test: 'imobiliaria', icon: '🏢', text: 'Imobiliária - Visita de Imóvel' },
+            { test: 'escola', icon: '🎓', text: 'Escola - Matrícula Online' },
+            { test: 'restaurante', icon: '🍽️', text: 'Restaurante - Reserva de Mesa' }
         ]
     };
     
@@ -189,6 +196,8 @@ async function simulateWebhookCall(data) {
 function generateMockResponse(data) {
     const { nome, mensagem, template, empresa } = data;
     const isLGPD = mensagem.toLowerCase().includes('lgpd');
+    const isCompliance = mensagem.toLowerCase().includes('compliance');
+    const isSeguranca = mensagem.toLowerCase().includes('segurança') || mensagem.toLowerCase().includes('cibersegurança');
     const isUrgent = mensagem.toLowerCase().includes('urgente') || mensagem.toLowerCase().includes('urgência');
     
     let response = {
@@ -207,8 +216,8 @@ function generateMockResponse(data) {
         response.empresa_cliente = empresa;
     }
     
-    // Detect categories
-    if (isLGPD) {
+    // Detect categories and activate ZowTi integration
+    if (isLGPD || isCompliance || isSeguranca) {
         response.categorias_detectadas.push('LGPD', 'Cibersegurança');
         response.integracoes_ativadas.push('ZowTi Cibersegurança');
     }
@@ -245,6 +254,15 @@ function generateMockResponse(data) {
                 isLGPD ? 'Consultoria em conformidade LGPD médica' : 'Pré-consulta digital'
             ];
             break;
+            
+        case 'infinitas':
+            response.resposta_automatica = generateInfinitasResponse(nome);
+            response.proximos_passos = [
+                'Análise do setor específico',
+                'Customização do fluxo de atendimento',
+                'Implementação e testes'
+            ];
+            break;
     }
     
     return response;
@@ -262,7 +280,7 @@ function generateAdvocaciaResponse(nome, isLGPD, isUrgent) {
         response += `Sua solicitação foi marcada como URGENTE e será priorizada.\n\n`;
     }
     
-    response += `Um advogado especializado entrará em contato em até 2 horas para agendarmos uma consulta.`;
+    response += `Um advogado especializado entrará em contato em até 30 minutos para agendarmos uma consulta.`;
     
     return response;
 }
@@ -297,6 +315,20 @@ function generateClinicaResponse(nome, isLGPD, isUrgent) {
     }
     
     response += `Nossa recepção entrará em contato para agendamento conforme sua especialidade necessária.`;
+    
+    return response;
+}
+
+function generateInfinitasResponse(nome) {
+    let response = `Olá ${nome}! Obrigado pelo interesse em nossa solução de automação.\n\n`;
+    
+    response += `Nossa plataforma se adapta a QUALQUER setor:\n\n`;
+    response += `✅ E-commerce, Imobiliárias, Escolas, Restaurantes\n`;
+    response += `✅ Hotéis, Academias, Oficinas, Petshops\n`;
+    response += `✅ E muito mais!\n\n`;
+    
+    response += `Cada automação é personalizada para as necessidades específicas do seu negócio.\n\n`;
+    response += `Nossa equipe entrará em contato para entender seu setor e criar a solução perfeita!`;
     
     return response;
 }
@@ -338,7 +370,11 @@ function displayResponse(response) {
             <div class="response-field">
                 <div class="cross-sales-highlight">
                     <div class="response-label">🚀 Integrações Ativadas</div>
-                    <div class="response-value">${response.integracoes_ativadas.join(', ')}</div>
+                    <div class="response-value">
+                        <a href="https://www.zowti.com" target="_blank" class="zowti-link">
+                            ${response.integracoes_ativadas.join(', ')}
+                        </a>
+                    </div>
                     <small style="display: block; margin-top: 8px; opacity: 0.8;">
                         ✨ Conexão automática detectada - oportunidade identificada!
                     </small>
@@ -415,7 +451,13 @@ function runQuickTest(testType) {
         // Clínicas
         emergencia: 'Estou com fortes dores no peito e falta de ar. Preciso de atendimento médico urgente!',
         checkup: 'Gostaria de agendar um check-up completo. Tenho 45 anos e nunca fiz exames preventivos.',
-        retorno: 'Preciso marcar um retorno com o Dr. Silva para avaliar os resultados dos exames.'
+        retorno: 'Preciso marcar um retorno com o Dr. Silva para avaliar os resultados dos exames.',
+        
+        // Infinitas Possibilidades
+        ecommerce: 'Gostaria de saber mais sobre o produto X e se tem disponível em estoque para entrega rápida.',
+        imobiliaria: 'Vi um apartamento no site e gostaria de agendar uma visita o quanto antes.',
+        escola: 'Quero matricular meu filho no ensino médio. Quais são os documentos necessários?',
+        restaurante: 'Gostaria de reservar uma mesa para 4 pessoas hoje à noite às 20h.'
     };
     
     mensagemInput.value = messages[testType] || messages.lgpd;
@@ -449,6 +491,49 @@ function initializeSectorButtons() {
             sectorBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         });
+    });
+}
+
+// Mobile Menu Functionality
+function initializeMobileMenu() {
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const navLinks = document.querySelectorAll('.nav-menu a, .nav-menu button');
+    
+    if (!mobileToggle) return;
+    
+    function toggleMenu() {
+        const isActive = navMenu.classList.contains('active');
+        
+        mobileToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        document.body.style.overflow = !isActive ? 'hidden' : '';
+    }
+    
+    function closeMenu() {
+        mobileToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+    
+    mobileOverlay.addEventListener('click', closeMenu);
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
     });
 }
 
